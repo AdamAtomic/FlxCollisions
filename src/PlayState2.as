@@ -35,7 +35,7 @@ package
 			dispenser.setXSpeed(-100,100);
 			dispenser.setYSpeed(-100,100);
 			dispenser.createSprites(ImgGibs,500,16,true,0.8);
-			dispenser.start(false,0,0.01);
+			dispenser.start(false,0.01);
 			add(dispenser);
 			
 			//Camera tracker

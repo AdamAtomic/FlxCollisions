@@ -30,7 +30,7 @@ package
 			dispenser.setXSpeed(-10,10);
 			dispenser.setYSpeed(50,150);
 			dispenser.createSprites(ImgGibs,300,16,true,0.5);
-			dispenser.start(false,0,0.015);
+			dispenser.start(false,0.015);
 			add(dispenser);
 			
 			//Instructions and stuff

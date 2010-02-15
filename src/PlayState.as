@@ -41,7 +41,7 @@ package
 			dispenser.setXSpeed(100,400);
 			dispenser.setYSpeed(-50,50);
 			dispenser.createSprites(ImgGibs,120,16,true,0.8);
-			dispenser.start(false,0,0.035);
+			dispenser.start(false,0.035);
 			add(dispenser);
 			
 			//Basic level structure

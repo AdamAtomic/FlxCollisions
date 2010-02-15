@@ -10,8 +10,6 @@ package
 		{
 			super(320,240,PlayState,2);0xff233e58
 			FlxState.bgColor = 0xff233e58;
-			setLogoFX(0xffa4bdd7);
-			//showLogo = false;
 		}
 	}
 }
