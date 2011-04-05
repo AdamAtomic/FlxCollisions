@@ -15,39 +15,41 @@ package
 		
 		override public function create():void
 		{
+			//Limit collision boundaries to just this screen (since we don't scroll in this one)
+			FlxG.worldBounds.make(0,0,FlxG.width,FlxG.height);
+			
 			//Background
-			FlxState.bgColor = 0xffacbcd7;
+			FlxG.bgColor = 0xffacbcd7;
 			
 			//The thing you can move around
-			_platform = new FlxSprite((FlxG.width-64)/2,200).createGraphic(64,16,0xff233e58);
-			_platform.fixed = true;
+			_platform = new FlxSprite((FlxG.width-64)/2,200).makeGraphic(64,16,0xff233e58);
+			_platform.immovable = true;
 			add(_platform);
 			
 			//Pour nuts and bolts out of the air
 			var dispenser:FlxEmitter = new FlxEmitter((FlxG.width-64)/2,-64);
 			dispenser.gravity = 200;
 			dispenser.setSize(64,64);
-			dispenser.setXSpeed(-10,10);
-			dispenser.setYSpeed(50,150);
-			dispenser.createSprites(ImgGibs,300,16,true,0.5);
-			dispenser.start(false,0.015);
+			dispenser.setXSpeed(-20,20);
+			dispenser.setYSpeed(50,100);
+			dispenser.setRotation(-720,720);
+			dispenser.bounce = 0.1;
+			dispenser.makeParticles(ImgGibs,300,16,true,0.5);
+			dispenser.start(false,5,0.025);
 			add(dispenser);
 			
 			//Instructions and stuff
-			_fps = new FlxText(FlxG.width-40,0,40).setFormat(null,8,0x49637a,"right");
-			_fps.scrollFactor.x = _fps.scrollFactor.y = 0;
-			add(_fps);
 			var tx:FlxText;
 			tx = new FlxText(2,FlxG.height-12,FlxG.width,"Interact with ARROWS + SPACE, or press ENTER for next demo.");
 			tx.scrollFactor.x = tx.scrollFactor.y = 0;
 			tx.color = 0x49637a;
 			add(tx);
+			
+			FlxG.watch(FlxG,"score","collision time");
 		}
 		
 		override public function update():void
 		{
-			_fps.text = FlxU.floor(1/FlxG.elapsed)+" fps";
-			
 			//Platform controls
 			var v:Number = 50;
 			if(FlxG.keys.SPACE)
@@ -61,7 +63,7 @@ package
 			super.update();
 			collide();
 			if(FlxG.keys.justReleased("ENTER"))
-				FlxG.state = new PlayState();
+				FlxG.switchState(new PlayState());
 		}
 	}
 }

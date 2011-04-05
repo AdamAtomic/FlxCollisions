@@ -36,7 +36,7 @@ package
 			if(FlxG.keys.RIGHT)
 				acceleration.x += drag.x;
 			
-			if(onFloor)
+			if(isTouching(FLOOR))
 			{
 				//Jump controls
 				if(FlxG.keys.justPressed("SPACE"))

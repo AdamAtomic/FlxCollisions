@@ -9,15 +9,16 @@ package
 		[Embed(source="data/bg.png")] private var ImgBG:Class;
 		[Embed(source="data/gibs.png")] private var ImgGibs:Class;
 		
-		protected var _fps:FlxText;
-		
 		protected var _player:FlxSprite;
 		protected var _elevator:FlxSprite;
 		
 		override public function create():void
 		{
+			FlxG.framerate = 40;
+			FlxG.flashFramerate = 40;
+			
 			//Background
-			FlxState.bgColor = 0xffacbcd7;
+			FlxG.bgColor = 0xffacbcd7;
 			var decoration:FlxSprite = new FlxSprite(256,159,ImgBG);
 			decoration.moves = false;
 			decoration.solid = false;
@@ -36,27 +37,26 @@ package
 			add(new Crate(272,48));
 			
 			//This is the thing that spews nuts and bolts
-			var dispenser:FlxEmitter = new FlxEmitter(32,32);
-			dispenser.setSize(8,24);
-			dispenser.setXSpeed(100,400);
+			var dispenser:FlxEmitter = new FlxEmitter(32,40);
+			dispenser.setSize(30,10);
+			dispenser.setXSpeed(100,300);
 			dispenser.setYSpeed(-50,50);
-			dispenser.createSprites(ImgGibs,120,16,true,0.8);
-			dispenser.start(false,0.035);
+			dispenser.gravity = 300;
+			dispenser.bounce = 0.1;
+			dispenser.makeParticles(ImgGibs,100,16,true,0.8);
+			dispenser.start(false,10,0.035);
 			add(dispenser);
 			
 			//Basic level structure
 			var t:FlxTilemap = new FlxTilemap();
 			t.auto = FlxTilemap.ALT;
-			t.loadMap(FlxTilemap.pngToCSV(ImgMap,false,2),ImgTiles);
+			t.loadMap(FlxTilemap.imageToCSV(ImgMap,false,2),ImgTiles);
 			t.follow();
 			add(t);
 			
 			//Instructions and stuff
-			_fps = new FlxText(FlxG.width-40,0,40).setFormat(null,8,0x778ea1,"right",0x233e58);
-			_fps.scrollFactor.x = _fps.scrollFactor.y = 0;
-			add(_fps);
 			var tx:FlxText;
-			tx = new FlxText(2,0,FlxG.width,"flixel v2.0");
+			tx = new FlxText(2,0,FlxG.width,FlxG.getLibraryName());
 			tx.scrollFactor.x = tx.scrollFactor.y = 0;
 			tx.color = 0x778ea1;
 			tx.shadow = 0x233e58;
@@ -66,15 +66,17 @@ package
 			tx.color = 0x778ea1;
 			tx.shadow = 0x233e58;
 			add(tx);
+			
+			FlxG.watch(FlxG,"score","collision time");
+			FlxG.watch(FlxG,"level","add time");
 		}
 		
 		override public function update():void
 		{
-			_fps.text = FlxU.floor(1/FlxG.elapsed)+" fps";
 			super.update();
 			collide();
 			if(FlxG.keys.justReleased("ENTER"))
-				FlxG.state = new PlayState2();
+				FlxG.switchState(new PlayState2());
 		}
 	}
 }

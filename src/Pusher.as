@@ -14,7 +14,7 @@ package
 			super(X, Y, ImgPusher);
 			_x = X;				//The starting height
 			_width = Width;		//How far over to travel
-			fixed = true;		//We want the pusher to be "solid" and not shift during collisions
+			immovable = true;	//We want the pusher to be "solid" and not shift during collisions
 			velocity.x = 40;	//Basic pusher speed
 		}
 		

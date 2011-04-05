@@ -8,8 +8,8 @@ package
 	{
 		public function FlxCollisions()
 		{
-			super(320,240,PlayState,2);0xff233e58
-			FlxState.bgColor = 0xff233e58;
+			super(320,240,PlayState,2);
+			debugOnRelease = true;
 		}
 	}
 }
