@@ -54,21 +54,20 @@ package
 			t.follow();
 			add(t);
 			
-			//Instructions and stuff
+			//Library label in upper left
 			var tx:FlxText;
-			tx = new FlxText(2,0,FlxG.width,FlxG.getLibraryName());
-			tx.scrollFactor.x = tx.scrollFactor.y = 0;
-			tx.color = 0x778ea1;
-			tx.shadow = 0x233e58;
-			add(tx);
-			tx = new FlxText(2,FlxG.height-12,FlxG.width,"Interact with ARROWS + SPACE, or press ENTER for next demo.");
+			tx = new FlxText(2,0,FlxG.width/4,FlxG.getLibraryName());
 			tx.scrollFactor.x = tx.scrollFactor.y = 0;
 			tx.color = 0x778ea1;
 			tx.shadow = 0x233e58;
 			add(tx);
 			
-			FlxG.watch(FlxG,"score","collision time");
-			FlxG.watch(FlxG,"level","add time");
+			//Instructions
+			tx = new FlxText(2,FlxG.height-12,FlxG.width,"Interact with ARROWS + SPACE, or press ENTER for next demo.");
+			tx.scrollFactor.x = tx.scrollFactor.y = 0;
+			tx.color = 0x778ea1;
+			tx.shadow = 0x233e58;
+			add(tx);
 		}
 		
 		override public function update():void

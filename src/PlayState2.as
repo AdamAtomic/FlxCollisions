@@ -58,9 +58,6 @@ package
 			tx.scrollFactor.x = tx.scrollFactor.y = 0;
 			tx.color = 0x49637a;
 			add(tx);
-			
-			FlxG.watch(FlxG,"score","collision time");
-			FlxG.watch(FlxG,"level","add time");
 		}
 		
 		override public function update():void
