@@ -1,6 +1,7 @@
 package
 {
 	import org.flixel.*;
+	import org.flixel.system.FlxTile;
 
 	public class PlayState extends FlxState
 	{
@@ -9,14 +10,11 @@ package
 		[Embed(source="data/bg.png")] private var ImgBG:Class;
 		[Embed(source="data/gibs.png")] private var ImgGibs:Class;
 		
-		protected var _player:FlxSprite;
-		protected var _elevator:FlxSprite;
+		protected var _level:FlxTilemap;
+		protected var _player:Player;
 		
 		override public function create():void
-		{
-			FlxG.framerate = 40;
-			FlxG.flashFramerate = 40;
-			
+		{			
 			//Background
 			FlxG.bgColor = 0xffacbcd7;
 			var decoration:FlxSprite = new FlxSprite(256,159,ImgBG);
@@ -29,7 +27,8 @@ package
 			//Add game objects
 			add(new Elevator(208,80,112));
 			add(new Pusher(96,208,56));
-			add(new Player(32,176));
+			_player = new Player(32,176);
+			add(_player);
 			add(new Crate(64,208));
 			add(new Crate(108,176));
 			add(new Crate(140,176));
@@ -48,11 +47,10 @@ package
 			add(dispenser);
 			
 			//Basic level structure
-			var t:FlxTilemap = new FlxTilemap();
-			t.auto = FlxTilemap.ALT;
-			t.loadMap(FlxTilemap.imageToCSV(ImgMap,false,2),ImgTiles);
-			t.follow();
-			add(t);
+			_level = new FlxTilemap();
+			_level.loadMap(FlxTilemap.imageToCSV(ImgMap,false,2),ImgTiles,0,0,FlxTilemap.ALT);
+			_level.follow();
+			add(_level);
 			
 			//Library label in upper left
 			var tx:FlxText;
@@ -68,12 +66,35 @@ package
 			tx.color = 0x778ea1;
 			tx.shadow = 0x233e58;
 			add(tx);
+			
+			/*part of silly path-finding test
+			FlxG.mouse.show();
+			FlxG.visualDebug = true;//*/
+		}
+		
+		override public function destroy():void
+		{
+			super.destroy();
+			_level = null;
+			_player = null;
 		}
 		
 		override public function update():void
 		{
+			/*silly path-finding test
+			if(FlxG.mouse.justPressed())
+			{
+				var path:FlxPath = _level.findPath(_player.getMidpoint(),FlxG.mouse,true,true);
+				if(path != null)
+				{
+					if(_player.path != null)
+						_player.path.destroy();
+					_player.followPath(path,80);
+				}
+			}//*/
+			
 			super.update();
-			collide();
+			FlxG.collide();
 			if(FlxG.keys.justReleased("ENTER"))
 				FlxG.switchState(new PlayState2());
 		}

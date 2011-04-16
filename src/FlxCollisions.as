@@ -8,8 +8,8 @@ package
 	{
 		public function FlxCollisions()
 		{
-			super(320,240,PlayState,2);
-			debugOnRelease = true;
+			super(320,240,PlayState,2,40,40);
+			forceDebugger = true;
 		}
 	}
 }

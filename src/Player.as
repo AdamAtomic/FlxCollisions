@@ -55,9 +55,6 @@ package
 				play("jump");
 			else
 				play("flail");
-			
-			//Default object physics update
-			super.update();
 		}
 	}
 }

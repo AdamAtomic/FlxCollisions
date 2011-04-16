@@ -76,7 +76,7 @@ package
 				_focus.velocity.y += focusSpeed;
 			
 			super.update();
-			collide();
+			FlxG.collide();
 			if(FlxG.keys.justReleased("ENTER"))
 				FlxG.switchState(new PlayState3());
 		}
