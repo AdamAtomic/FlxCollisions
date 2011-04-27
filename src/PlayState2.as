@@ -39,7 +39,7 @@ package
 			dispenser.setSize(640,480);
 			dispenser.setXSpeed(-100,100);
 			dispenser.setYSpeed(-100,100);
-			dispenser.bounce = 0.5;
+			dispenser.bounce = 0.65;
 			dispenser.makeParticles(ImgGibs,300,16,true,0.8);
 			dispenser.start(false,10,0.05);
 			add(dispenser);

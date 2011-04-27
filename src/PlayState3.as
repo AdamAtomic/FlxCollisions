@@ -33,7 +33,7 @@ package
 			dispenser.setXSpeed(-20,20);
 			dispenser.setYSpeed(50,100);
 			dispenser.setRotation(-720,720);
-			dispenser.bounce = 0.1;
+			//dispenser.bounce = 0.1;
 			dispenser.makeParticles(ImgGibs,300,16,true,0.5);
 			dispenser.start(false,5,0.025);
 			add(dispenser);
